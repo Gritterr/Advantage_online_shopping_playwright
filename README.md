@@ -37,28 +37,16 @@ This repository contains an automated end-to-end test suite for the Advantage On
 
 ## Prerequisites
 
-### System Requirements
-- **Node.js**: v16.0.0 or higher
-- **npm**: v7.0.0 or higher
-- **OS**: Windows, macOS, or Linux
-- **Browser**: Chromium (automatically installed with Playwright)
-
 ### Installation
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/YOUR_USERNAME/playwright-ecommerce-automation.git
-cd playwright-ecommerce-automation
+git clone git@github.com:Gritterr/Advantage_online_shopping_playwright.git
 ```
 
 2. **Install dependencies**
 ```bash
 npm install
-```
-
-3. **Install Playwright browsers**
-```bash
-npx playwright install chromium
 ```
 
 ## Configuration
@@ -73,140 +61,36 @@ The test suite is configured to:
 - Enable trace recording on first retry
 - Timeout for each test: 30000ms (default)
 
-### TypeScript Configuration (`tsconfig.json`)
-
-TypeScript is configured with strict mode enabled for type safety.
 
 ## Test Scenarios
 
 ### 1. Authentication Tests (`tests/auth.spec.ts`)
 
 #### Test 1: Create a New User Account
-- **Objective**: Verify user can successfully create a new account
-- **Steps**:
-  1. Navigate to the registration page
-  2. Fill out registration form with unique credentials
-  3. Submit the form
-  4. Verify successful account creation
 
 #### Test 2: Login with Valid Credentials
-- **Objective**: Verify user can login with correct credentials
-- **Steps**:
-  1. Register a test user
-  2. Navigate to login page
-  3. Enter valid email and password
-  4. Verify successful login and user is authenticated
 
 #### Test 3: Logout Successfully
-- **Objective**: Verify user can logout from their account
-- **Steps**:
-  1. Register and login a test user
-  2. Click user menu and logout
-  3. Verify user is logged out and session is cleared
 
 #### Test 4: Invalid Login Credentials Error Handling
-- **Objective**: Verify appropriate error message for invalid login attempts
-- **Steps**:
-  1. Navigate to login page
-  2. Attempt login with invalid email/password
-  3. Verify error message is displayed
-  4. Verify user remains on login page
 
 #### Test 5: Empty Form Validation
-- **Objective**: Verify validation errors when submitting empty login form
-- **Steps**:
-  1. Navigate to login page
-  2. Click login without filling form
-  3. Verify validation errors are shown
 
 ### 2. Shopping and Checkout Tests (`tests/shopping.spec.ts`)
 
 #### Test 1: Add Product to Cart (Logged-Out User)
-- **Objective**: Verify logged-out user can add items to cart
-- **Steps**:
-  1. Ensure user is logged out
-  2. Navigate to home page
-  3. Select and view a product
-  4. Click "Add to Cart"
-  5. Verify item appears in shopping cart
 
 #### Test 2: Add Product to Cart (Logged-In User)
-- **Objective**: Verify logged-in user can add items to cart
-- **Steps**:
-  1. Register and login a test user
-  2. Navigate to home page
-  3. Select and view a product
-  4. Click "Add to Cart"
-  5. Verify item appears in shopping cart
 
 #### Test 3: Checkout Redirect (Logged-Out User)
-- **Objective**: Verify logged-out user is redirected to login during checkout
-- **Steps**:
-  1. Ensure user is logged out
-  2. Add a product to cart
-  3. Proceed to checkout
-  4. Verify user is redirected to login page
 
 #### Test 4: Complete Checkout Flow (Logged-In User)
-- **Objective**: Verify logged-in user can complete checkout
-- **Steps**:
-  1. Register and login a test user
-  2. Add product to cart
-  3. Proceed to checkout
-  4. Fill shipping address information
-  5. Fill payment information
-  6. Place order
-  7. Verify order confirmation
-
-#### Test 5: Display Cart Total
-- **Objective**: Verify cart displays correct total price
-- **Steps**:
-  1. Register and login a test user
-  2. Add product to cart
-  3. Navigate to cart page
-  4. Verify cart total is displayed and formatted correctly
 
 ## Running Tests
 
 ### Run All Tests
 ```bash
-npm test
-```
-
-### Run Specific Test File
-```bash
-# Run authentication tests only
-npm run test:auth
-
-# Run shopping and checkout tests only
-npm run test:shopping
-```
-
-### Run Tests in Chromium Only
-```bash
-npm run test:chromium
-```
-
-### Run Tests in Debug Mode
-```bash
-npm run test:debug
-```
-
-### Run Tests with UI Mode
-```bash
-npm run test:ui
-```
-
-### Run Tests with Specific Configuration
-```bash
-# Run tests with trace recording
-npx playwright test --trace on
-
-# Run tests with headed browser (show browser window)
-npx playwright test --headed
-
-# Run tests on specific browser
-npx playwright test --project=chromium
+npx playwright test
 ```
 
 ## Test Execution Output
@@ -234,63 +118,18 @@ npx playwright show-report
 
 ### BasePage
 Base class containing common methods used across all pages:
-- `navigate(path)`: Navigate to a specific URL
-- `click(selector)`: Click an element
-- `fill(selector, value)`: Fill form inputs
-- `getText(selector)`: Get element text
-- `isVisible(selector)`: Check element visibility
-- `getUrl()`: Get current URL
 
 ### HomePage
-- `goto()`: Navigate to home page
-- `clickUserMenu()`: Open user menu
-- `clickLogout()`: Logout user
-- `OpenUserMenu()`: Navigate to login
-- `clickSignUp()`: Navigate to registration
-- `selectFirstProduct()`: Click first product
-- `isUserLoggedIn()`: Check login status
 
 ### LoginPage
-- `goto()`: Navigate to login page
-- `login(email, password)`: Perform login
-- `fillEmail(email)`: Fill email field
-- `fillPassword(password)`: Fill password field
-- `clickLoginButton()`: Click login button
-- `getErrorMessage()`: Get error message text
-- `isErrorDisplayed()`: Check if error is shown
 
 ### RegisterPage
-- `goto()`: Navigate to registration page
-- `register(...)`: Complete registration
-- `fillUsername(username)`: Fill username
-- `fillEmail(email)`: Fill email
-- `fillPassword(password)`: Fill password
-- `fillConfirmPassword(confirm)`: Fill confirm password
-- `clickRegisterButton()`: Submit registration
 
 ### ProductPage
-- `getProductName()`: Get product name
-- `getProductPrice()`: Get product price
-- `addToCart()`: Add product to cart
-- `setQuantity(quantity)`: Set product quantity
-- `isAddToCartButtonVisible()`: Check button visibility
 
 ### CartPage
-- `goto()`: Navigate to cart page
-- `getCartItemCount()`: Get number of items in cart
-- `getCartItems()`: Get count of cart items
-- `isCartEmpty()`: Check if cart is empty
-- `getCartTotal()`: Get cart total price
-- `proceedToCheckout()`: Start checkout
-- `removeItem(index)`: Remove item from cart
 
 ### CheckoutPage
-- `goto()`: Navigate to checkout page
-- `fillShippingAddress(...)`: Fill address fields
-- `fillPaymentInfo(...)`: Fill payment fields
-- `placeOrder()`: Complete the order
-- `isOrderConfirmationDisplayed()`: Check order confirmation
-- `isCheckoutFormVisible()`: Check form visibility
 
 ## Best Practices Implemented
 
@@ -303,80 +142,6 @@ Base class containing common methods used across all pages:
 7. **Meaningful Assertions**: Clear expectations for test outcomes
 8. **Test Independence**: Tests can run in any order without dependencies
 
-## Troubleshooting
-
-### Issue: Tests timeout
-**Solution**: Increase timeout in playwright.config.ts or individual tests
-```typescript
-test('my test', async ({ page }) => {
-  test.setTimeout(60000); // 60 seconds
-});
-```
-
-### Issue: Element not found
-**Solution**: 
-- Verify selectors are correct using browser DevTools
-- Add explicit waits before interacting with elements
-- Use `waitForSelector()` if elements load asynchronously
-
-### Issue: Tests fail intermittently
-**Solution**:
-- Check network connectivity
-- Increase timeout values
-- Add explicit waits for page load states
-- Check if test data is properly generated
-
-### Issue: Browser not installed
-**Solution**: 
-```bash
-npx playwright install chromium
-```
-
-## Continuous Integration
-
-To run tests in CI/CD pipelines:
-
-```bash
-# Install dependencies
-npm install
-
-# Install browsers
-npx playwright install --with-deps
-
-# Run tests
-npm test
-
-# Generate report
-npx playwright show-report
-```
-
-## Future Enhancements
-
-- [ ] Add Firefox and Safari browser testing
-- [ ] Implement cross-browser visual regression testing
-- [ ] Add performance testing with metrics
-- [ ] Implement API testing for backend validation
-- [ ] Add test data management system
-- [ ] Implement custom reporting with test metrics
-- [ ] Add accessibility testing
-- [ ] Implement mobile/responsive testing
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/new-tests`)
-3. Commit your changes (`git commit -m 'Add new test scenarios'`)
-4. Push to the branch (`git push origin feature/new-tests`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact
-
-For questions or issues, please open an issue in the GitHub repository.
-
 ## Resources
 
 - [Playwright Documentation](https://playwright.dev)
@@ -387,4 +152,3 @@ For questions or issues, please open an issue in the GitHub repository.
 
 ---
 
-**Last Updated**: January 2026
